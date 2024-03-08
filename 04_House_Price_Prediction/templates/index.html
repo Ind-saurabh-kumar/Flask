@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Website Template</title>
+<style>
+  /* Resetting default margin and padding */
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+  
+  /* Header styling */
+  header {
+    background-color: #333;
+    color: #fff;
+    padding: 10px 0;
+    text-align: center;
+  }
+  
+  /* Navbar styling */
+  nav {
+    background-color: #444;
+    padding: 10px 0;
+    text-align: center;
+  }
+  
+  nav ul {
+    list-style-type: none;
+  }
+  
+  nav ul li {
+    display: inline;
+    margin-right: 20px;
+  }
+  
+  nav ul li a {
+    text-decoration: none;
+    color: #fff;
+  }
+  
+  /* Main section styling with background image */
+  main {
+    background-image: url("{{url_for('static', filename='background.jpg')}}");
+    background-size: cover;
+    background-position: center;
+    min-height: 400px; /* Adjust as needed */
+    padding: 20px;
+    color: #333; /* Text color on top of the background image */
+  }
+  
+  /* Footer styling */
+  footer {
+    background-color: #333;
+    color: #fff;
+    padding: 10px 0;
+    text-align: center;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+  }
+</style>
+</head>
+<body>
+<header>
+  
+</header>
+<nav>
+  <ul>
+    <li><a href="index.html">Home</a></li>
+    <li><a href="#">About</a></li>
+    <li><a href="#">Services</a></li>
+    <li><a href="#">Contact</a></li>
+  </ul>
+</nav>
+<main>
+  <h2>House Price Prediction Application</h2>
+  <center>
+
+
+    
+    <pre>
+    <form action="{{ url_for('predict')}}"method="post">
+    
+    <input type='text' name="area" placeholder="Area in sq. ft" required="required"/>
+    
+    
+    <button type="submit" class="button">Predict Price</button>
+    </form>
+    <textarea>
+    {{prediction_text}}
+    </textarea>
+    </pre>
+    </center>
+  
+</main>
+<footer>
+  
+</footer>
+</body>
+</html>
