@@ -1,29 +1,26 @@
-# train_model.py 
-
-import seaborn as sns 
-import pandas as pd 
-from sklearn.model_selection import train_test_split 
-from sklearn.linear_model import LinearRegression 
+from flask import Flask, request, render_template 
+import numpy as np 
 import joblib 
 
-
-# Load the dataset 
-tips = sns.load_dataset('tips')
-
-# For simplicity, we'll use 'total_bill' and 'size' as features 
-# Convert categorical variablies to dummy variables if you use them 
-
-X = tips[['total_bill', 'size']]
-y = tips['tip']
+app = Flask(__name__)
+model = joblib.load('tip_predictor_model.pkl')
 
 
-# Split the data into train and test sets 
-X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=0.2)
+@app.route('/', methods=['GET', 'POST'])
+def predict():
+    if request.method == 'POST':
+        total_bill = float(request.form['total_bill'])
+        size = int(request.form['size'])
 
-# Train the model 
-model = LinearRegression 
-model.fit(X_train, y_train)
+        # Create the feature array 
+
+        features = np.array([[total_bill, size]])
+        prediction = model.predict(features)
+
+        return render_template('result.html', prediction=round(prediction[0],2))
+    
+    return render_template('index.html')
 
 
-# Save the model 
-joblib.dump(model, 'tip_predictor_model.pkl')
+if __name__ =='__main__':
+    app.run(debug=True)
